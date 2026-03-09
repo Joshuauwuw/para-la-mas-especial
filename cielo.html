@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Para ti ❤️</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+font-family:Arial;
+overflow:hidden;
+text-align:center;
+}
+
+.flor{
+font-size:150px;
+cursor:pointer;
+}
+
+.mensaje{
+margin-top:20px;
+font-size:26px;
+color:#b3003c;
+max-width:600px;
+}
+
+/* corazones */
+
+.corazon{
+position:absolute;
+font-size:20px;
+animation:subir 6s linear infinite;
+}
+
+@keyframes subir{
+0%{
+transform:translateY(100vh);
+opacity:1;
+}
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+}
+
+</style>
+
+<script>
+
+let etapa = 0;
+
+let flores = ["🌹","🌺","🌸","🌷","💐"];
+
+let mensajes = [
+"Ve picándole a la rosa 🌹",
+"Esta rosa es para la mujer más preciosa del mundo ❤️",
+"Esta es por lo gentil y dulce que eres conmigo 🌸",
+"Y esta por lo inteligente y especial que eres 🌷",
+"¿Sabes qué? Mejor un ramo entero 💐 porque decir cada cosa buena que tienes me tomaría toda la vida ❤️"
+];
+
+function abrirFlor(){
+
+if(etapa < flores.length-1){
+
+etapa++;
+
+document.getElementById("flor").innerHTML = flores[etapa];
+
+document.getElementById("mensaje").innerHTML = mensajes[etapa];
+
+}
+else{
+
+window.location.href="cielo.html";
+
+}
+
+}
+/* corazones */
+
+function crearCorazon(){
+
+let corazon=document.createElement("div");
+corazon.classList.add("corazon");
+corazon.innerHTML="❤️";
+
+corazon.style.left=Math.random()*100+"vw";
+corazon.style.fontSize=(Math.random()*25+15)+"px";
+
+document.body.appendChild(corazon);
+
+setTimeout(()=>{
+corazon.remove();
+},6000);
+
+}
+
+setInterval(crearCorazon,300);
+
+</script>
+
+</head>
+
+<body>
+
+<div id="flor" class="flor" onclick="abrirFlor()">🌹</div>
+
+<div id="mensaje" class="mensaje">
+Ve picándole a la rosa 🌹
+</div>
+
+</body>
+</html>
