@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cielo para ti ✨</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+background:linear-gradient(to bottom,#000010,#050530);
+overflow:hidden;
+font-family:Arial;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+/* mensaje */
+
+.mensaje{
+position:absolute;
+top:15%;
+font-size:30px;
+max-width:750px;
+line-height:1.6;
+z-index:5;
+}
+
+/* estrellas */
+
+.estrella{
+position:absolute;
+background:white;
+border-radius:50%;
+box-shadow:0 0 10px white,0 0 20px white;
+cursor:pointer;
+animation:parpadear 1.5s infinite alternate;
+display:flex;
+align-items:center;
+justify-content:center;
+color:red;
+font-size:16px;
+}
+
+@keyframes parpadear{
+from{opacity:0.4;}
+to{opacity:1;}
+}
+
+/* luna */
+
+.luna{
+position:absolute;
+top:60px;
+right:120px;
+width:120px;
+height:120px;
+background:#f5f3ce;
+border-radius:50%;
+box-shadow:0 0 50px white;
+cursor:pointer;
+z-index:4;
+}
+
+/* estrella fugaz */
+
+.fugaz{
+position:absolute;
+width:3px;
+height:80px;
+background:linear-gradient(white,transparent);
+transform:rotate(45deg);
+opacity:0.9;
+animation:caer 1s linear forwards;
+}
+
+@keyframes caer{
+0%{
+transform:translateX(0) translateY(0) rotate(45deg);
+opacity:1;
+}
+100%{
+transform:translateX(400px) translateY(400px) rotate(45deg);
+opacity:0;
+}
+}
+
+/* mensaje final */
+
+.final{
+position:absolute;
+font-size:80px;
+color:#ff4d6d;
+display:none;
+text-shadow:0 0 20px white,0 0 40px pink;
+z-index:10;
+}
+
+/* corazones cayendo */
+
+.corazon{
+position:absolute;
+font-size:20px;
+animation:caerCorazon 5s linear forwards;
+}
+
+@keyframes caerCorazon{
+0%{
+transform:translateY(-10vh);
+opacity:1;
+}
+100%{
+transform:translateY(110vh);
+opacity:0;
+}
+}
+
+</style>
+
+<script>
+
+let estrellas=[];
+
+/* crear estrella */
+
+function crearEstrella(){
+
+let estrella=document.createElement("div");
+
+estrella.classList.add("estrella");
+
+let size=Math.random()*6+4;
+
+estrella.style.width=size+"px";
+estrella.style.height=size+"px";
+
+estrella.style.left=Math.random()*100+"vw";
+estrella.style.top=Math.random()*100+"vh";
+
+estrella.onclick=function(){
+
+estrella.remove();
+
+crearEstrella();
+
+};
+
+document.body.appendChild(estrella);
+
+estrellas.push(estrella);
+
+}
+
+/* crear cielo */
+
+function crearCielo(){
+
+for(let i=0;i<120;i++){
+
+crearEstrella();
+
+}
+
+}
+
+/* estrella fugaz */
+
+function estrellaFugaz(){
+
+let fugaz=document.createElement("div");
+
+fugaz.classList.add("fugaz");
+
+fugaz.style.left=Math.random()*80+"vw";
+fugaz.style.top=Math.random()*40+"vh";
+
+document.body.appendChild(fugaz);
+
+setTimeout(()=>{
+fugaz.remove();
+},1000);
+
+}
+
+/* convertir estrellas en corazones */
+
+function estrellasACorazones(){
+
+estrellas.forEach(e=>{
+
+e.style.background="none";
+e.innerHTML="❤️";
+e.style.fontSize="20px";
+
+});
+
+}
+
+/* crear lluvia de corazones */
+
+function lluviaCorazones(){
+
+setInterval(()=>{
+
+let corazon=document.createElement("div");
+
+corazon.classList.add("corazon");
+
+corazon.innerHTML="💖";
+
+corazon.style.left=Math.random()*100+"vw";
+
+corazon.style.fontSize=(Math.random()*20+15)+"px";
+
+document.body.appendChild(corazon);
+
+setTimeout(()=>{
+corazon.remove();
+},5000);
+
+},200);
+
+}
+
+/* música */
+
+function tocarMusica(){
+
+let musica=document.getElementById("musica");
+
+musica.play();
+
+estrellasACorazones();
+
+}
+
+/* final */
+
+function finMusica(){
+
+document.getElementById("final").style.display="block";
+
+lluviaCorazones();
+
+}
+
+/* iniciar */
+
+window.onload=function(){
+
+crearCielo();
+
+setInterval(estrellaFugaz,4000);
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="mensaje">
+Me di cuenta que lo de las rosas era muy poco para comparar con tus virtudes.  
+Porque las rosas pueden tener un límite… pero el espacio es infinito,  
+así como las virtudes que tienes y el amor que siento por ti. ✨❤️  
+<br><br>
+Y no mires mucho a la luna… porque tiene envidia de tu belleza 🌙  
+<br><br>
+(toca la luna)
+</div>
+
+<div class="luna" onclick="tocarMusica()"></div>
+
+<div id="final" class="final">
+TE AMO MUCHO ❤️
+</div>
+
+<audio id="musica" onended="finMusica()">
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+</body>
+</html>
