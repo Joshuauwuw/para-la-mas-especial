@@ -229,31 +229,37 @@ corazon.remove();
 
 function tocarMusica(){
 
+let musicaIniciada=false;
+
+function tocarMusica(){
+
+if(musicaIniciada) return;
+
+musicaIniciada=true;
+
 let musica=document.getElementById("musica");
 
 musica.play();
 
 estrellasACorazones();
 
-}
+/* mensaje después de 20 segundos */
 
-/* final */
+setTimeout(()=>{
 
-function finMusica(){
+document.getElementById("mensaje").innerHTML=
+"Por si no te diste cuenta... cuando le das click a las estrellas desaparecen y vuelven a aparecer, porque son infinitas... así como el amor que te tengo ❤️";
 
-document.getElementById("final").style.display="block";
+},20000);
 
-lluviaCorazones();
+/* mensaje después de 40 segundos */
 
-}
+setTimeout(()=>{
 
-/* iniciar */
+document.getElementById("mensaje").innerHTML=
+"Espero que te esté gustando... es algo sencillo, pero hecho con mucho amor para ti ✨";
 
-window.onload=function(){
-
-crearCielo();
-
-setInterval(estrellaFugaz,4000);
+},40000);
 
 }
 
