@@ -143,7 +143,6 @@ estrella.style.top=Math.random()*100+"vh";
 estrella.onclick=function(){
 
 estrella.remove();
-
 crearEstrella();
 
 };
@@ -159,9 +158,7 @@ estrellas.push(estrella);
 function crearCielo(){
 
 for(let i=0;i<120;i++){
-
 crearEstrella();
-
 }
 
 }
@@ -190,16 +187,14 @@ fugaz.remove();
 function estrellasACorazones(){
 
 estrellas.forEach(e=>{
-
 e.style.background="none";
 e.innerHTML="❤️";
 e.style.fontSize="20px";
-
 });
 
 }
 
-/* crear lluvia de corazones */
+/* lluvia de corazones */
 
 function lluviaCorazones(){
 
@@ -212,7 +207,6 @@ corazon.classList.add("corazon");
 corazon.innerHTML="💖";
 
 corazon.style.left=Math.random()*100+"vw";
-
 corazon.style.fontSize=(Math.random()*20+15)+"px";
 
 document.body.appendChild(corazon);
@@ -225,41 +219,48 @@ corazon.remove();
 
 }
 
-/* música */
+/* iniciar música */
 
 function tocarMusica(){
-
-let musicaIniciada=false;
-
-function tocarMusica(){
-
-if(musicaIniciada) return;
-
-musicaIniciada=true;
 
 let musica=document.getElementById("musica");
 
+musica.currentTime=0;
 musica.play();
 
 estrellasACorazones();
 
-/* mensaje después de 20 segundos */
+/* mensaje 20s */
 
 setTimeout(()=>{
-
 document.getElementById("mensaje").innerHTML=
-"Por si no te diste cuenta... cuando le das click a las estrellas desaparecen y vuelven a aparecer, porque son infinitas... así como el amor que te tengo ❤️";
-
+"Por si no te diste cuenta... cuando le das click a las estrellas desaparecen y vuelven a aparecer porque son infinitas, así como el amor que te tengo ❤️";
 },20000);
 
-/* mensaje después de 40 segundos */
+/* mensaje 40s */
 
 setTimeout(()=>{
-
 document.getElementById("mensaje").innerHTML=
 "Espero que te esté gustando... es algo sencillo, pero hecho con mucho amor para ti ✨";
-
 },40000);
+
+}
+
+/* final música */
+
+function finMusica(){
+
+document.getElementById("final").style.display="block";
+lluviaCorazones();
+
+}
+
+/* iniciar cielo */
+
+window.onload=function(){
+
+crearCielo();
+setInterval(estrellaFugaz,4000);
 
 }
 
@@ -269,7 +270,7 @@ document.getElementById("mensaje").innerHTML=
 
 <body>
 
-<div class="mensaje">
+<div id="mensaje" class="mensaje">
 Me di cuenta que lo de las rosas era muy poco para comparar con tus virtudes.  
 Porque las rosas pueden tener un límite… pero el espacio es infinito,  
 así como las virtudes que tienes y el amor que siento por ti. ✨❤️  
@@ -286,7 +287,7 @@ TE AMO MUCHO ❤️
 </div>
 
 <audio id="musica" onended="finMusica()">
-<source src="Taylor Swift - Afterglow (Official Audio)(MP3_160K).mp3" type="audio/mpeg">
+<source src="musica.mp3" type="audio/mpeg">
 </audio>
 
 </body>
